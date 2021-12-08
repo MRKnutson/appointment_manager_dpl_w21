@@ -25,12 +25,18 @@ const Doctors = () => {
       return <p>No Doctors</p>
     }
     return doctors.map((doctor) => {
-      return <Doctor key ={doctor.id}{...doctor}/>;
+      return <Doctor key ={doctor.id}{...doctor}deleteDoctor={deleteDoctor}/>;
     });
   };
 
   const displayNewDoctor=(doctor)=> {
     setDoctors([doctor,...doctors])
+  };
+
+  const deleteDoctor = async (id) => {
+    let response = await axios.delete(`/api/doctors/${id}`);
+    let filteredDoctors = doctors.filter((doctor) => doctor.id !==id);
+    setDoctors(filteredDoctors);
   };
 
   return (
