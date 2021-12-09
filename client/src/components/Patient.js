@@ -17,6 +17,7 @@ const Patient = (props) => {
   )} else {
   return(
   <div>
+  <p>ID:{props.id}</p>
   <p>Name:{props.name}</p>
     <Button onClick={() => setEditToggle(!editToggle)}>Edit</Button>
     <Button onClick={()=> deletePatient(id)}>Delete</Button>
