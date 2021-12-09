@@ -12,7 +12,7 @@ const AppointmentForm = (props) => {
   const handleSubmit = async(e) => {
     console.log(sessionState);
     e.preventDefault();
-    const newAppointment = {doctor_id:doctor_idState, patient_id:patient_idState, session:moment(sessionState).utc()};
+    const newAppointment = {doctor_id:doctor_idState, patient_id:patient_idState, session:moment(sessionState).local()};
     
     if (id) {
       let response = await axios.put(`/api/doctors/${id}`, newAppointment);
@@ -21,8 +21,8 @@ const AppointmentForm = (props) => {
     else { 
     let response = await axios.post("/api/appointments", newAppointment);
     newestAppointment(response.data)
+    console.log( response.data)
   }
-  console.log()
   };
 
   return(
