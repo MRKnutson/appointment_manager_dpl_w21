@@ -2,23 +2,11 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Patient from "./Patient";
 import PatientForm from "./PatientForm";
+import useAxiosOnMount from "../hooks/useAxiosOnMount";
 
 const Patients = () => {
-  const [patients, setPatients] = useState([])
 
-  useEffect(() => {
-    console.log("mounted");
-    getPatients();
-  },[]);
-
-  const getPatients = async () => {
-    try {
-      let response = await axios.get("/api/patients");
-    setPatients(response.data)
-    } catch (error) {
-      alert("Error getting patient data, debug")
-    }
-  };
+  const {data: patients, setData: setPatients} = useAxiosOnMount('/api/patients')
 
   const renderPatients=()=> {
     if (patients.length === 0) {
