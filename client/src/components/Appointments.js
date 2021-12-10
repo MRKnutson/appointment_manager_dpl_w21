@@ -5,6 +5,8 @@ import AppointmentForm from "./AppointmentForm";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [patients, setPatients] = useState([]);
 
   useEffect(()=>{
     getData();
@@ -13,7 +15,11 @@ const Appointments = () => {
   const getData = async () => {
     try {
       let response = await axios.get(`/api/appointments`)
+      let doctorRes = await axios.get(`/api/doctors`)
+      let patientRes = await axios.get(`/api/patients`)
       setAppointments(response.data)
+      setDoctors(doctorRes.data)
+      setPatients(patientRes.data)
     } catch (err) {
       alert("error getting appointments: debug")
     }
@@ -24,7 +30,7 @@ const Appointments = () => {
       return <p>No Appointments</p>
     }
     return appointments.map((appointment)=>{
-      return <Appointment key = {appointment.id}{...appointment} updateAppointment={updateAppointment} deleteAppointment={deleteAppointment}/>
+      return <Appointment key = {appointment.id}{...appointment} updateAppointment={updateAppointment} deleteAppointment={deleteAppointment} doctors={doctors} patients={patients}/>
       
     });
   };
@@ -47,7 +53,7 @@ const Appointments = () => {
   return (
     <div>
       <h1>Appointments</h1>
-      <AppointmentForm newestAppointment={displayNewAppointment}/>
+      <AppointmentForm newestAppointment={displayNewAppointment} patients = {patients} doctors={doctors}/>
       {renderAppointments()}
     </div>
   );
