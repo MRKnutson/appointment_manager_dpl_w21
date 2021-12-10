@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 
 const useAxiosOnMount = (url) =>{
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     getData();
@@ -14,11 +15,11 @@ const useAxiosOnMount = (url) =>{
       let response = await axios.get(url);
     setData(response.data)
     } catch (error) {
-      alert("Error getting data, debug")
+      setError(error)
     }
   };
 
-  return {data, setData};
+  return {data, setData, error, setError};
 
 };
 

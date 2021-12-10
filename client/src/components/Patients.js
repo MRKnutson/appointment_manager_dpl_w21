@@ -3,13 +3,14 @@ import axios from "axios";
 import Patient from "./Patient";
 import PatientForm from "./PatientForm";
 import useAxiosOnMount from "../hooks/useAxiosOnMount";
+import StringifyJson from "./StringifyJson";
 
 const Patients = () => {
 
-  const {data: patients, setData: setPatients} = useAxiosOnMount('/api/patients')
+  const {data: patients, setData: setPatients, error: error} = useAxiosOnMount('/api/patients')
 
   const renderPatients=()=> {
-    if (patients.length === 0) {
+    if (!patients) {
       return <p>No Patients</p>
     }
     return patients.map((patient) => {
@@ -36,7 +37,8 @@ const Patients = () => {
     <div>
     <h1>Patients</h1>
     <PatientForm newestPatient={displayNewPatient}/>
-    {renderPatients()}
+    {patients && renderPatients()}
+    {error && <StringifyJson json = {error}/>}
     </div>
   );
 };
