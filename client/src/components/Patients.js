@@ -4,10 +4,12 @@ import Patient from "./Patient";
 import PatientForm from "./PatientForm";
 import useAxiosOnMount from "../hooks/useAxiosOnMount";
 import StringifyJson from "./StringifyJson";
+import { Dimmer, Image, Loader, Segment } from "semantic-ui-react";
+import {Spinner} from "react-bootstrap";
 
 const Patients = () => {
 
-  const {data: patients, setData: setPatients, error: error} = useAxiosOnMount('/api/patients')
+  const {data: patients, setData: setPatients, error: error, loading: loading} = useAxiosOnMount('/api/patients')
 
   const renderPatients=()=> {
     if (!patients) {
@@ -33,10 +35,33 @@ const Patients = () => {
   setPatients(updatedPatients)
   };
 
+  const loaderTest = () =>{
+    return(
+      <>
+  <Spinner animation="border" variant="primary" />
+  <Spinner animation="border" variant="secondary" />
+  <Spinner animation="border" variant="success" />
+  <Spinner animation="border" variant="danger" />
+  <Spinner animation="border" variant="warning" />
+  <Spinner animation="border" variant="info" />
+  <Spinner animation="border" variant="light" />
+  <Spinner animation="border" variant="dark" />
+  <Spinner animation="grow" variant="primary" />
+  <Spinner animation="grow" variant="secondary" />
+  <Spinner animation="grow" variant="success" />
+  <Spinner animation="grow" variant="danger" />
+  <Spinner animation="grow" variant="warning" />
+  <Spinner animation="grow" variant="info" />
+  <Spinner animation="grow" variant="light" />
+  <Spinner animation="grow" variant="dark" />
+  </>
+    )
+  }
   return (
     <div>
     <h1>Patients</h1>
-    <PatientForm newestPatient={displayNewPatient}/>
+    {patients && <PatientForm newestPatient={displayNewPatient}/>}
+    {loading && loaderTest()}
     {patients && renderPatients()}
     {error && <StringifyJson json = {error}/>}
     </div>
