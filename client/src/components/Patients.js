@@ -6,6 +6,7 @@ import useAxiosOnMount from "../hooks/useAxiosOnMount";
 import StringifyJson from "./StringifyJson";
 import { Dimmer, Image, Loader, Segment } from "semantic-ui-react";
 import {Spinner} from "react-bootstrap";
+import List from "./List";
 
 const Patients = () => {
 
@@ -15,10 +16,12 @@ const Patients = () => {
     if (!patients) {
       return <p>No Patients</p>
     }
-    return patients.map((patient) => {
-      return <Patient key ={patient.id}{...patient}deletePatient={deletePatient} updatePatient={updatePatient}/>;
-    });
-  };
+    return (
+    <List data={patients} title={"Patients"}
+    renderData = {(patient) => {
+      return <Patient key ={patient.id}{...patient}deletePatient={deletePatient} updatePatient={updatePatient}/>}}/>);
+    };
+
 
   const displayNewPatient=(patient)=> {
     setPatients([patient,...patients])

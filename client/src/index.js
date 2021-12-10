@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import "semantic-ui-css/semantic.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Menu } from 'semantic-ui-react';
+
 
 ReactDOM.render(
   <BrowserRouter>
